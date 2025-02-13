@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Children Foundation Trust</title>
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    /* Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Navigation Styles */
+    nav {
+      position: fixed;
+      width: 100%;
+      padding: 20px 50px;
+      background: rgba(255, 255, 255, 0.95);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Updated Logo Styles */
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 24px;
+      font-weight: 700;
+      color: #ff1717;
+      white-space: nowrap; /* Prevents the text from wrapping */
+    }
+
+    .logo img {
+      height: 50px;
+      transition: all 0.3s ease;
+    }
+
+    /* Hamburger Menu (hidden on desktop) */
+    .hamburger {
+      display: none;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      transition: 0.3s;
+      /* Professional styling for nav text */
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 10px 15px;
+    }
+
+    .nav-links a:hover {
+      color: #ff1717;
+    }
+
+    .nav-links a.active {
+      color: #ff1717;
+      border-bottom: 2px solid #ff1717;
+    }
+
+    /* Section Common Styles */
+    section {
+      min-height: 100vh;
+      padding: 100px 50px 50px;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Home Section */
+    #home {
+      background: #ff1717;
+      color: white;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .home-content {
+      max-width: 800px;
+    }
+
+    .home-icon {
+      font-size: 4em;
+      margin-bottom: 20px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .home-content h1 {
+      font-size: 3.5em;
+      margin-bottom: 20px;
+    }
+
+    .home-content p {
+      font-size: 1.2em;
+      margin-bottom: 30px;
+    }
+
+    .cta-button {
+      padding: 15px 40px;
+      background: #ffde59;
+      color: #333;
+      border: none;
+      border-radius: 30px;
+      font-size: 1.1em;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    /* About Section */
+    #about {
+      background: #ffde59;
+      flex-direction: column;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-10px);
+    }
+
+    /* Improved Image Responsiveness */
+    .gallery-item img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+    }
+
+    .mission-text {
+      max-width: 800px;
+      margin: 40px auto 0;
+      text-align: center;
+      font-size: 1.1em;
+      line-height: 1.8;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transform: translateY(20px);
+      opacity: 0;
+      animation: slideUp 0.5s ease forwards;
+    }
+
+    @keyframes slideUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Contact Section */
+    #contact {
+      background: #ffde59;
+      justify-content: center;
+    }
+
+    .contact-container {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      width: 100%;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      margin: 20px 0;
+      padding: 15px;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+
+    .contact-item:hover {
+      background: #f8f8f8;
+      transform: translateX(10px);
+    }
+
+    .contact-item i {
+      font-size: 24px;
+      margin-right: 20px;
+      color: #ff1717;
+    }
+
+    /* Responsive Styles */
+    @media only screen and (max-width: 768px) {
+      nav {
+        padding: 10px 20px;
+      }
+
+      /* Adjust logo on mobile */
+      .logo img {
+        height: 40px;
+      }
+      .logo {
+        font-size: 20px;
+      }
+
+      /* Show hamburger menu on mobile */
+      .hamburger {
+        display: block;
+      }
+
+      /* Hide the normal nav links off-screen by default */
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        width: 250px;
+        background: rgba(255, 255, 255, 0.95);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+      }
+
+      /* When .open class is added, show the menu */
+      .nav-links.open {
+        transform: translateX(0);
+      }
+
+      section {
+        padding: 80px 20px 50px;
+      }
+
+      .home-content h1 {
+        font-size: 2.5em;
+      }
+
+      .home-content p {
+        font-size: 1em;
+      }
+
+      .cta-button {
+        padding: 10px 20px;
+        font-size: 1em;
+      }
+
+      .gallery {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
+
+      .gallery-item img {
+        height: 200px;
+      }
+
+      .contact-container {
+        padding: 20px;
+      }
+
+      .contact-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .contact-item i {
+        margin-bottom: 10px;
+      }
+
+      /* Professional nav-link adjustments on mobile */
+      .nav-links a {
+        font-size: 1rem;
+      }
+    }
+
+    /* Adjustments for very small screens (max-width: 480px) */
+    @media only screen and (max-width: 480px) {
+      .logo span {
+        /* Instead of hiding, scale down the text */
+        font-size: 14px;
+      }
+      .logo img {
+        height: 35px;
+      }
+      #home {
+        padding: 80px 15px 30px;
+      }
+      .home-content h1 {
+        font-size: 2em;
+        line-height: 1.3;
+      }
+      .home-content p {
+        font-size: 0.9em;
+        margin-bottom: 20px;
+      }
+      .cta-button {
+        width: 100%;
+        max-width: 300px;
+        padding: 12px;
+      }
+      .gallery {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+      .gallery-item img {
+        height: 250px;
+      }
+      .mission-text {
+        margin: 30px 0 0;
+        padding: 15px;
+        font-size: 0.95em;
+      }
+      .contact-container {
+        padding: 25px 15px;
+        width: 95%;
+      }
+      .contact-item {
+        margin: 15px 0;
+        padding: 10px;
+      }
+      .contact-item h3 {
+        font-size: 1em;
+      }
+      .contact-item p {
+        font-size: 0.9em;
+      }
+      /* Improve mobile nav-link styling */
+      .nav-links a {
+        font-size: 0.95rem;
+        padding: 8px 12px;
+      }
+    }
+
+    /* Tablet-specific adjustments (481px to 768px) */
+    @media only screen and (min-width: 481px) and (max-width: 768px) {
+      .home-content h1 {
+        font-size: 2.8em;
+      }
+      .gallery {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .logo span {
+        font-size: 18px;
+      }
+      .nav-links a {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <div class="logo">
+      <img src="assets/download.png" alt="Children Foundation Trust">
+      <span>Children Foundation Trust</span>
+    </div>
+    <div class="hamburger"><i class="fas fa-bars"></i></div>
+    <div class="nav-links">
+      <a href="#home" class="active">Home</a>
+      <a href="#about">About Us</a>
+      <a href="#contact">Contact Us</a>
+    </div>
+  </nav>
+
+  <!-- Home Section -->
+  <section id="home">
+    <div class="home-content">
+      <i class="fas fa-hands-helping home-icon"></i>
+      <h1>Help Change a Child's Future</h1>
+      <p class="tagline">Empowering young minds through education and care</p>
+      <p>Join us in our mission to break the cycle of poverty through education and holistic child development.</p>
+      <button class="cta-button">Donate Now</button>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about">
+    <h2 style="margin-bottom: 40px; width: 100%; text-align: center;">
+      Our Mission in Action
+    </h2>
+    <div class="gallery">
+      <div class="gallery-item">
+        <img src="assets/1.jpg" alt="Child 1" />
+      </div>
+      <div class="gallery-item">
+        <img src="assets/2.jpg" alt="Child 2" />
+      </div>
+      <div class="gallery-item">
+        <img src="assets/3.jpg" alt="Child 3" />
+      </div>
+      <div class="gallery-item">
+        <img src="assets/4.jpg" alt="Child 4" />
+      </div>
+    </div>
+    <div class="mission-text">
+      <p>We accept donations to provide quality education to underprivileged children and
+      create opportunities for a brighter future. Through various activities and programs, we
+      empower them with knowledge, skills, and support to help them thrive. Your
+      contribution can make a real difference in shaping their lives.</p>
+    </div>
+  </section>
+<!-- Contact Section -->
+<section id="contact">
+  <div class="contact-container">
+    <h2 style="margin-bottom: 30px; color: #ff1717;">Connect With Us & Donate Today!!</h2>
+    
+    <div class="contact-item">
+      <i class="fab fa-instagram"></i>
+      <div>
+        <h3>Follow Us</h3>
+        <p><a href="https://www.instagram.com/childrenFoundationtrust" target="_blank">@ChildrenFoundationTrust</a></p>
+      </div>
+    </div>
+    
+    <div class="contact-item">
+      <i class="fas fa-envelope"></i>
+      <div>
+        <h3>Email Us</h3>
+        <p><a href="mailto:childrenfoundationtrust@yahoo.com">childrenfoundationtrust@yahoo.com</a></p>
+      </div>
+    </div>
+    
+    <div class="contact-item">
+      <i class="fas fa-phone"></i>
+      <div>
+        <h3>Call Us</h3>
+        <p><a href="tel:8879663934">8879663934</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <script>
+    // Toggle the mobile menu when hamburger is clicked
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+
+    // Smooth scroll and active class management
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+        // Remove active class from all links
+        document.querySelectorAll('.nav-links a').forEach(link => {
+          link.classList.remove('active');
+        });
+        // Add active class to clicked link
+        this.classList.add('active');
+        // Close mobile menu after selection
+        if (window.innerWidth <= 768) {
+          navLinks.classList.remove('open');
+        }
+      });
+    });
+
+    // Update active class on scroll
+    window.addEventListener('scroll', () => {
+      let current = '';
+      document.querySelectorAll('section').forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (pageYOffset >= sectionTop - sectionHeight / 3) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      document.querySelectorAll('.nav-links a').forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href').includes(current)) {
+          link.classList.add('active');
+        }
+      });
+    });
+
+    // Donation button click – redirect to the Contact Us section
+    document.querySelector('.cta-button').addEventListener('click', () => {
+      document.querySelector('#contact').scrollIntoView({
+        behavior: 'smooth'
+      });
+    });
+  </script>
+</body>
+</html>
